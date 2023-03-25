@@ -1,0 +1,6 @@
+name: TechnoBlocks
+version: '${project.version}'
+main: it.technoade.technoblocks.Main
+api-version: 1.19
+authors: [ TechnoAde ]
+description: The new spawn block plugin 
