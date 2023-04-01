@@ -5,6 +5,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
 
 import java.util.List;
 
@@ -17,13 +18,15 @@ public class Utils {
             meta.setDisplayName(title);
         }
         if(!enchantments.isEmpty()) {
-            enchantments.stream().parallel().forEach(enchantment -> item.addEnchantment(enchantment, 1));
+            enchantments.forEach(enchantment -> item.addEnchantment(enchantment, 1));
         }
         if(!itemFlags.isEmpty()) {
-            itemFlags.stream().parallel().forEach(meta::addItemFlags);
+            itemFlags.forEach(meta != null ? meta::addItemFlags : null);
         }
         if(!lore.isEmpty()) {
-            meta.setLore(lore);
+            if (meta != null) {
+                meta.setLore(lore);
+            }
         }
         item.setItemMeta(meta);
         return item;

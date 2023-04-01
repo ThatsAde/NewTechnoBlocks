@@ -6,14 +6,46 @@
 #      |_|\___|\___|_| |_|_| |_|\___/  |____/|_|\___/ \___|_|\_\___/
 #                Version: 2.0 Developed by TechnoAde#2952
 
-config-version: 1
+config-version: 1 #You should to don't touch this
 
 itemselector:
-  position: 8
-  displayname: "&4ciccio"
+  position: 8 #Position where is gived the block selector
+  displayname: "&bBlock Selector" #Name of the item block selector
+  material: CHEST #Material of the block selector
+  defaultpos: 4 #Takes the first item written below in itemsselectorgui
+  gui: #Gui section
+    guititle: "&bSelector" #Name of the gui selector
+    guisize: 27 #Size of the selector gui
 
-ciccio:
-  1:
-    "adad"
-  2:
-    "adad"
+itemselectorgui:
+  example:
+    position: 10 #Blo ck position
+    displayname: "&4Obsidian" #Name of the block // USE 1.13+ BLOCKS, until the devs commit the rewritepacket update
+    lore:
+      - "&7Amazing block"
+    material: OBSIDIAN #Material
+    quantity: 1 #Quantity of block
+    permission: "vip.example" #Permission to use
+  item1:
+    position: 12
+    displayname: "&cBlock 1"
+    lore:
+      - "&7Amazing stone!"
+    material: STONE
+    quantity: 2
+    permission: "vip.block1"
+  item2:
+    position: 14
+    displayname: "&bBlock 2"
+    lore:
+      - "&7Amazing wool!"
+    material: RED_WOOL
+    quantity: 3
+
+blocks:
+  position: 4 #Postion of where the block will be gived
+  remove: 5 #Calculated in seconds(s)
+
+messages:
+  blockselected: "&bBlock gived"
+  noperms: "&cYou don't have perms"
