@@ -39,7 +39,7 @@ itemselectorgui:
     displayname: "&bBlock 2"
     lore:
       - "&7Amazing wool!"
-    material: RED_WOOL
+    material: WOOL
     quantity: 3
 
 blocks:

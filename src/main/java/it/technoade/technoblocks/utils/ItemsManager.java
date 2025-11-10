@@ -1,6 +1,8 @@
 package it.technoade.technoblocks.utils;
 
+import it.technoade.technoblocks.BlockWrapper;
 import it.technoade.technoblocks.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -14,12 +16,35 @@ public class ItemsManager {
     public static final HashMap<ItemStack, String> item = new HashMap<>();
 
     public static void registerItems() {
-        ArrayList<String> configItems = new ArrayList<>(Objects.requireNonNull(Main.plugin.getConfig().getConfigurationSection("itemselectorgui")).getKeys(false));
-        configItems.forEach(s -> item.put(Utils.createItem(
-                Main.plugin.getConfig().getInt("itemselectorgui." + s + ".quantity"),
-                (short) 1, Utils.color(Objects.requireNonNull(Main.plugin.getConfig().getString("itemselectorgui." + s + ".displayname"))),
-                Material.getMaterial(Objects.requireNonNull(Main.plugin.getConfig().getString("itemselectorgui." + s + ".material"))),
-                Collections.emptyList(), Collections.emptyList(), Collections.emptyList()), s));
+        var section = Main.plugin.getConfig().getConfigurationSection("itemselectorgui");
+        if (section == null) return;
+
+        for (String s : section.getKeys(false)) {
+
+            String matName = Main.plugin.getConfig().getString("itemselectorgui." + s + ".material");
+            Material mat = BlockWrapper.get(Main.plugin.getConfig().getString("itemselectorgui." + s + ".material"), Material.STONE);
+
+            if (mat == null) {
+                Bukkit.getLogger().warning("§c[TechnoBlocks] Materiale non valido: " + matName);
+                continue;
+            }
+
+            int quantity = Main.plugin.getConfig().getInt("itemselectorgui." + s + ".quantity");
+            short damage = 0;
+
+            item.put(
+                    Utils.createItem(
+                            quantity,
+                            damage,
+                            Utils.color(Main.plugin.getConfig().getString("itemselectorgui." + s + ".displayname")),
+                            mat,
+                            Collections.emptyList(),
+                            Collections.emptyList(),
+                            Collections.emptyList()),
+                    s
+            );
+        }
     }
+
 
 }

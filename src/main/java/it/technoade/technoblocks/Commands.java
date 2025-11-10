@@ -1,6 +1,5 @@
 package it.technoade.technoblocks;
 
-import it.technoade.technoblocks.utils.Items;
 import it.technoade.technoblocks.utils.ItemsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
