@@ -1,0 +1,16 @@
+name: TechnoBlocks
+version: '${project.version}'
+main: it.technoade.technoblocks.TechnoBlocksPlugin
+api-version: '1.13'
+author: TechnoAde
+description: Temporary hub blocks that crack and disappear over time
+softdepend: [PlaceholderAPI]
+commands:
+  technoblocks:
+    description: TechnoBlocks main command
+    usage: /<command> [reload|clear]
+    aliases: [tb]
+permissions:
+  technoblocks.admin:
+    description: Use /technoblocks reload and clear
+    default: op
