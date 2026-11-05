@@ -29,6 +29,7 @@
         <module>nms/v1_18_R2</module>
         <module>nms/v1_19_R1</module>
         <module>nms/v1_19_R2</module>
+        <module>modern</module>
         <module>core</module>
         <module>dist</module>
     </modules>

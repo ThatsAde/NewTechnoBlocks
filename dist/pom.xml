@@ -21,6 +21,11 @@
         <!-- adapters -->
         <dependency>
             <groupId>it.technoade</groupId>
+            <artifactId>technoblocks-modern</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>it.technoade</groupId>
             <artifactId>technoblocks-nms-v1_19_R2</artifactId>
             <version>${project.version}</version>
         </dependency>
