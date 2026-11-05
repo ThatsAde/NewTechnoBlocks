@@ -14,6 +14,7 @@
 
     <modules>
         <module>api</module>
+        <module>common-legacy</module>
         <module>core</module>
         <module>dist</module>
     </modules>
