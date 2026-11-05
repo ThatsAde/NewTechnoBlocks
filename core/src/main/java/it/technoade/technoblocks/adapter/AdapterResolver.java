@@ -1,7 +1,9 @@
 package it.technoade.technoblocks.adapter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,6 +28,22 @@ public final class AdapterResolver {
      */
     public static String resolve(boolean hasSourceIdDamageApi, String craftBukkitPackage) {
         if (hasSourceIdDamageApi) return MODERN;
+        return nmsAdapter(craftBukkitPackage);
+    }
+
+    /**
+     * Adapters to try in order. Paper may expose the source-id API on a version whose Java can't
+     * load the Java 17 modern module (1.17.1 runs Java 16), so the NMS adapter follows as fallback.
+     */
+    public static List<String> candidates(boolean hasSourceIdDamageApi, String craftBukkitPackage) {
+        List<String> out = new ArrayList<String>();
+        if (hasSourceIdDamageApi) out.add(MODERN);
+        String nms = nmsAdapter(craftBukkitPackage);
+        if (nms != null) out.add(nms);
+        return out;
+    }
+
+    private static String nmsAdapter(String craftBukkitPackage) {
         if (craftBukkitPackage == null) return null;
         String revision = craftBukkitPackage.substring(craftBukkitPackage.lastIndexOf('.') + 1);
         if (!revision.startsWith("v") || !NMS_REVISIONS.contains(revision)) return null;

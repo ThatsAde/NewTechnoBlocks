@@ -107,6 +107,11 @@ public final class TemporaryBlockManager {
         return all.size();
     }
 
+    /** Restores every block of a world that is about to unload. */
+    public void restoreWorld(String world) {
+        for (TemporaryBlock temp : registry.drainWorld(world)) finish(temp);
+    }
+
     /** Sends the current crack stage of nearby blocks to a player who just arrived. */
     public void resendTo(Player player) {
         if (!settings.isCracksEnabled()) return;
@@ -181,7 +186,11 @@ public final class TemporaryBlockManager {
         clearCrack(temp);
         dirty = true;
         Location loc = location(temp);
-        if (loc == null) return;
+        if (loc == null) {
+            // world unloaded: keep the line so the next start (with the world loaded) cleans it up
+            keptFromCrash.add(ActiveBlocksStore.encode(temp));
+            return;
+        }
         Block block = loc.getBlock();
         if (adapter.matches(block, temp.getPlaced())) {
             adapter.restoreState(block, temp.getReplacedState());

@@ -13,6 +13,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
 import java.util.Iterator;
 import java.util.List;
@@ -31,12 +32,21 @@ public final class ProtectionListener implements Listener {
     /** Only creative players may break temporary blocks early; creative drops nothing. */
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onBreak(BlockBreakEvent e) {
-        if (!manager.isTemporary(e.getBlock())) return;
-        if (e.getPlayer().getGameMode() == GameMode.CREATIVE) {
-            manager.forget(e.getBlock());
-        } else {
+        if (manager.isTemporary(e.getBlock()) && e.getPlayer().getGameMode() != GameMode.CREATIVE) {
             e.setCancelled(true);
         }
+    }
+
+    /** Forgets the block only once no other plugin can cancel the break any more. */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onBreakFinal(BlockBreakEvent e) {
+        if (manager.isTemporary(e.getBlock())) manager.forget(e.getBlock());
+    }
+
+    /** The world is still accessible here, so its blocks can be restored before it is saved. */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onWorldUnload(WorldUnloadEvent e) {
+        manager.restoreWorld(e.getWorld().getName());
     }
 
     @EventHandler(ignoreCancelled = true)

@@ -21,6 +21,19 @@ public final class ItemProtection {
         return tag.substring(BLOCK_PREFIX.length());
     }
 
+    /** Removes plugin items (e.g. from death drops). @return how many were removed */
+    public static <T> int removeTagged(java.util.Collection<T> items, java.util.function.Function<T, String> tagReader) {
+        int removed = 0;
+        java.util.Iterator<T> it = items.iterator();
+        while (it.hasNext()) {
+            if (isPluginTag(tagReader.apply(it.next()))) {
+                it.remove();
+                removed++;
+            }
+        }
+        return removed;
+    }
+
     /** True if any item involved in an inventory click is a plugin item. */
     public static boolean shouldCancelClick(String currentTag, String cursorTag, String hotbarSlotTag) {
         return isPluginTag(currentTag) || isPluginTag(cursorTag) || isPluginTag(hotbarSlotTag);

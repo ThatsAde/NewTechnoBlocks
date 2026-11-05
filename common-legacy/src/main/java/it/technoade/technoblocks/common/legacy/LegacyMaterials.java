@@ -28,7 +28,10 @@ public final class LegacyMaterials {
             "BED_BLOCK", "SIGN_POST", "WALL_SIGN", "STANDING_BANNER", "WALL_BANNER", "PISTON_BASE",
             "PISTON_STICKY_BASE", "PISTON_EXTENSION", "PISTON_MOVING_PIECE", "COMMAND", "NOTE_BLOCK",
             "DAYLIGHT_DETECTOR", "DAYLIGHT_DETECTOR_INVERTED", "CAULDRON", "FLOWER_POT", "SKULL", "IRON_DOOR_BLOCK",
-            "WOODEN_DOOR", "ICE", "FROSTED_ICE", "SPONGE"));
+            "WOODEN_DOOR", "ICE", "FROSTED_ICE", "SPONGE",
+            // change type while placed (tilled, trampled, spread, lit, teleported, carved) and would never be restored
+            "GRASS", "DIRT", "MYCEL", "SOIL", "GRASS_PATH", "REDSTONE_ORE", "GLOWING_REDSTONE_ORE", "DRAGON_EGG",
+            "PUMPKIN"));
 
     static {
         for (int i = 0; i < COLORS.length; i++) {

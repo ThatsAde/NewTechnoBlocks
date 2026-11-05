@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,6 +21,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -67,6 +70,17 @@ public final class PlayerListener implements Listener {
         if (!ItemProtection.SELECTOR.equals(adapter.readTag(e.getItem()))) return;
         e.setCancelled(true);
         SelectorGui.open(e.getPlayer(), settings.get(), items);
+    }
+
+    /** Respawn hands out fresh copies, so plugin items never drop on death. */
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e) {
+        ItemProtection.removeTagged(e.getDrops(), new Function<ItemStack, String>() {
+            @Override
+            public String apply(ItemStack item) {
+                return adapter.readTag(item);
+            }
+        });
     }
 
     @EventHandler(ignoreCancelled = true)

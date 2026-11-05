@@ -6,6 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -19,18 +20,20 @@ public final class AdapterLoader {
     /** @return the adapter, or null (already logged) if the server is not supported */
     public static VersionAdapter load(Plugin plugin) {
         String craftPackage = Bukkit.getServer().getClass().getPackage().getName();
-        String className = AdapterResolver.resolve(hasSourceIdDamageApi(), craftPackage);
-        if (className == null) {
+        List<String> candidates = AdapterResolver.candidates(hasSourceIdDamageApi(), craftPackage);
+        if (candidates.isEmpty()) {
             plugin.getLogger().severe("Unsupported server version: " + Bukkit.getVersion() + " (" + craftPackage + ")");
             return null;
         }
-        try {
-            return (VersionAdapter) Class.forName(className).getConstructor(Plugin.class).newInstance(plugin);
-        } catch (Throwable t) {
-            plugin.getLogger().log(Level.SEVERE, "Could not load adapter " + className + " for "
-                    + Bukkit.getVersion() + " (" + craftPackage + ")", t);
-            return null;
+        for (String className : candidates) {
+            try {
+                return (VersionAdapter) Class.forName(className).getConstructor(Plugin.class).newInstance(plugin);
+            } catch (Throwable t) {
+                plugin.getLogger().log(Level.SEVERE, "Could not load adapter " + className + " for "
+                        + Bukkit.getVersion() + " (" + craftPackage + ")", t);
+            }
         }
+        return null;
     }
 
     private static boolean hasSourceIdDamageApi() {

@@ -54,6 +54,10 @@ public abstract class FlatAdapter implements VersionAdapter {
 
     @Override
     public MaterialSpec parseMaterial(String spec) {
+        return parseName(spec);
+    }
+
+    static MaterialSpec parseName(String spec) {
         if (spec == null) return null;
         String name = spec.trim().toUpperCase(Locale.ROOT);
         if (name.isEmpty()) return null;
@@ -67,9 +71,14 @@ public abstract class FlatAdapter implements VersionAdapter {
                 return null;
             }
             if (data < 0 || data > 15) return null;
-            Material legacy = Material.getMaterial("LEGACY_" + name.substring(0, colon));
-            if (legacy == null) return null;
-            material = Bukkit.getUnsafe().fromLegacy(new MaterialData(legacy, (byte) data));
+            try {
+                Material legacy = Material.getMaterial("LEGACY_" + name.substring(0, colon));
+                if (legacy == null) return null;
+                material = Bukkit.getUnsafe().fromLegacy(new MaterialData(legacy, (byte) data));
+            } catch (Throwable t) {
+                // legacy conversion missing on this server (future versions may drop it)
+                return null;
+            }
         } else {
             material = Material.matchMaterial(name);
         }

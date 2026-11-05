@@ -69,6 +69,20 @@ public final class TemporaryBlockRegistry {
         return all;
     }
 
+    /** Removes and returns every block in the given world. */
+    public List<TemporaryBlock> drainWorld(String world) {
+        List<TemporaryBlock> drained = new ArrayList<TemporaryBlock>();
+        java.util.Iterator<TemporaryBlock> it = byPos.values().iterator();
+        while (it.hasNext()) {
+            TemporaryBlock block = it.next();
+            if (block.getPos().getWorld().equals(world)) {
+                drained.add(block);
+                it.remove();
+            }
+        }
+        return drained;
+    }
+
     public Collection<TemporaryBlock> all() {
         return Collections.unmodifiableCollection(byPos.values());
     }
