@@ -16,6 +16,11 @@
         <module>api</module>
         <module>common-legacy</module>
         <module>common-flat</module>
+        <module>nms/v1_8_R3</module>
+        <module>nms/v1_9_R2</module>
+        <module>nms/v1_10_R1</module>
+        <module>nms/v1_11_R1</module>
+        <module>nms/v1_12_R1</module>
         <module>core</module>
         <module>dist</module>
     </modules>
