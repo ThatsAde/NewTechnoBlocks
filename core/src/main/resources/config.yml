@@ -1,0 +1,66 @@
+#    _______        _                   ____  _            _
+#   |__   __|      | |                 |  _ \| |          | |
+#      | | ___  ___| |__  _ __   ___   | |_) | | ___   ___| | _____
+#      | |/ _ \/ __| '_ \| '_ \ / _ \  |  _ <| |/ _ \ / __| |/ / __|
+#      | |  __/ (__| | | | | | | (_) | | |_) | | (_) | (__|   <\__ \
+#      |_|\___|\___|_| |_|_| |_|\___/  |____/|_|\___/ \___|_|\_\___/
+#                       Version 3 - Developed by TechnoAde
+
+# Do not edit: used to update this file automatically.
+config-version: 3
+
+# Worlds where players get the selector and can place blocks.
+worlds:
+  mode: whitelist        # whitelist = only these worlds, blacklist = every world except these
+  list:
+    - hub
+
+# The item that opens the block selector GUI.
+selector:
+  slot: 8                # hotbar slot (0-8)
+  material: CHEST
+  name: "&bBlock Selector"
+  lore: []
+  gui:
+    title: "&bSelector"
+    rows: 3              # 1-6
+
+# Where the selected block is given and how long placed blocks last by default.
+placed-blocks:
+  slot: 4                # hotbar slot (0-8), must differ from selector.slot
+  default-duration: 5    # seconds, used when a block has no 'duration'
+
+# Crack animation shown while a placed block is about to disappear.
+cracks:
+  enabled: true
+  view-distance: 32      # blocks; vanilla clients don't draw cracks further than 32
+
+# Blocks shown in the selector GUI.
+# material: modern name (WHITE_WOOL) or legacy name with data (WOOL:0); translated for every server version.
+# Only simple solid blocks are accepted (no falling blocks, doors, beds, torches, chests...).
+# permission: optional, leave it out to let everyone use the block.
+blocks:
+  obsidian:
+    gui-slot: 10
+    material: OBSIDIAN
+    name: "&4Obsidian"
+    lore:
+      - "&7Amazing block"
+    amount: 1
+    duration: 10         # seconds
+    permission: "technoblocks.block.obsidian"
+  stone:
+    gui-slot: 12
+    material: STONE
+    name: "&cStone"
+    lore:
+      - "&7Amazing stone!"
+    amount: 2
+    duration: 5
+  wool:
+    gui-slot: 14
+    material: WHITE_WOOL
+    name: "&bWool"
+    lore:
+      - "&7Amazing wool!"
+    amount: 3

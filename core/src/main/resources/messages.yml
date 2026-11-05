@@ -1,0 +1,14 @@
+# TechnoBlocks messages. Color codes with &.
+block-selected: "&bBlock selected!"
+no-permission: "&cYou don't have permission to use this block."
+command-no-permission: "&cYou don't have permission."
+reload-done: "&bTechnoBlocks reloaded."
+clear-done: "&bRemoved %count% temporary blocks."
+usage: "&7Usage: /%label% [reload|clear]"
+info:
+  - "&8<&7--------------------------------------&8>"
+  - "&r"
+  - "&b&lTechnoBlocks %version% &7developed by &b&lTechnoAde"
+  - "&7for support join this discord: &bhttps://discord.gg/RPyF7Hjvc9"
+  - "&r"
+  - "&8<&7--------------------------------------&8>"
