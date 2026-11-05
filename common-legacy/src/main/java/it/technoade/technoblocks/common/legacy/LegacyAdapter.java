@@ -51,8 +51,9 @@ public abstract class LegacyAdapter implements VersionAdapter {
         block.setTypeIdAndData(spec.getMaterial().getId(), spec.getData(), false);
     }
 
+    /** Type only: the placed data value can differ from the item's (e.g. log orientation bits). */
     @Override
     public boolean matches(Block block, MaterialSpec spec) {
-        return block.getType() == spec.getMaterial() && block.getData() == spec.getData();
+        return block.getType() == spec.getMaterial();
     }
 }
